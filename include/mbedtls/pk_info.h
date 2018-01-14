@@ -227,40 +227,6 @@ struct mbedtls_pk_info_t
 
 };
 
-#define MBEDTLS_PK_OPAQUE_INFO_ASYNC_1(         \
-    name                                        \
-    , get_bitlen                                \
-    , can_do                                    \
-    , signature_size_func                       \
-    , verify_func                               \
-    , sign_func                                 \
-    , decrypt_func                              \
-    , encrypt_func                              \
-    , check_pair_func                           \
-    , ctx_alloc_func                            \
-    , ctx_free_func                             \
-    , debug_func                                \
-    , async_alloc_func                          \
-    , async_start_func                          \
-    )                                           \
-    {                                           \
-        MBEDTLS_PK_OPAQUE                       \
-        , name                                  \
-        , get_bitlen                            \
-        , can_do                                \
-        , signature_size_func                   \
-        , verify_func                           \
-        , sign_func                             \
-        , decrypt_func                          \
-        , encrypt_func                          \
-        , check_pair_func                       \
-        , ctx_alloc_func                        \
-        , ctx_free_func                         \
-        , debug_func                            \
-        , async_alloc_func                      \
-        , async_start_func                      \
-    }
-
 #define MBEDTLS_PK_OPAQUE_INFO_1(               \
     name                                        \
     , get_bitlen                                \
@@ -289,8 +255,6 @@ struct mbedtls_pk_info_t
         , ctx_alloc_func                        \
         , ctx_free_func                         \
         , debug_func                            \
-        , NULL                                  \
-        , NULL                                  \
     }
 
 
