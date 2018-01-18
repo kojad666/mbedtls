@@ -43,6 +43,7 @@ SKIPS=0
 CONFIG_H='../include/mbedtls/config.h'
 
 MEMCHECK=0
+PKCS11=0
 FILTER='.*'
 EXCLUDE='^$'
 
@@ -79,6 +80,7 @@ Usage: $0 [options]
      --seed=NUM         Integer seed value to use for this test run
      --server-opt=ARG   Additional option(s) to pass to $P_SRV
   -s|--show-numbers     Show test numbers in front of test names
+  -P|--pkcs11           Test PKCS11 using SoftHSM
 EOF
 }
 
@@ -95,6 +97,7 @@ get_options() {
             -e*|--exclude) target=EXCLUDE;;
             -f*|--filter) target=FILTER;;
             -m*|--memcheck) MEMCHECK=1;;
+            -P*|--pkcs11) PKCS11=1;;
             -n*|--number) target=RUN_TEST_NUMBER;;
             --port) target=SRV_PORT;;
             -p*|--preserve-logs) PRESERVE_LOGS=1;;
@@ -678,6 +681,10 @@ if which $OPENSSL_CMD >/dev/null 2>&1; then :; else
     exit 1
 fi
 
+if [ "$PKCS11" -gt 0 ]; then
+    SOFTHSM2_CONF="./softhsm2.conf"
+    P_SRV_EXTRA="${P_SRV_EXTRA} pkcs11=1"
+fi
 # used by watchdog
 MAIN_PID="$$"
 

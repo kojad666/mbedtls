@@ -18,6 +18,10 @@ else
 DEP=../library/libmbedcrypto.$(DLEXT) ../library/libmbedx509.$(DLEXT) ../library/libmbedtls.$(DLEXT)
 endif
 
+ifdef PKCS11
+	LOCAL_LDFLAGS += -lsofthsm2$(SHARED_SUFFIX)
+endif
+SOFTHSM2_DIR=softhsm2.d
 ifdef DEBUG
 LOCAL_CFLAGS += -g3
 endif
@@ -448,8 +452,15 @@ ifndef WINDOWS
 else
 	del /Q /F *.c *.exe
 endif
+	rm -rf $(SOFTHSM2_DIR)
 
-check: $(APPS)
+check: $(APPS) $(SOFTHSM2_DIR)
 	perl scripts/run-test-suites.pl
 
 test: check
+
+$(SOFTHSM2_DIR):
+ifdef PKCS11
+	echo "  Gen   $@"
+	./scripts/pkcs11-client-test.sh init
+endif

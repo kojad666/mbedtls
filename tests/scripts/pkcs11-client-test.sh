@@ -1,6 +1,5 @@
 #!/bin/sh
 set -u -e
-
 TOKEN_DIR=softhsm2.d
 
 if [ -e library/aes.c ]; then
@@ -14,6 +13,7 @@ elif [ -e ../../../library/aes.c ]; then
 else
   unset TOPDIR
 fi
+SOFTHSM2_CONF="${TOPDIR}/tests/softhsm2.conf"
 if [ -n "${TOPDIR+1}" ] &&
      make -C "$TOPDIR/programs" util/syslog2stderr.so >/dev/null 2>&1
 then

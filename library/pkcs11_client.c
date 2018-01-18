@@ -29,7 +29,6 @@
 
 #include <stdint.h>
 #include <string.h>
-#include <pkcs11.h>
 
 #include "mbedtls/pkcs11_client.h"
 

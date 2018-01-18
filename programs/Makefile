@@ -18,6 +18,10 @@ else
 DEP=../library/libmbedcrypto.$(DLEXT) ../library/libmbedx509.$(DLEXT) ../library/libmbedtls.$(DLEXT)
 endif
 
+ifdef PKCS11
+LOCAL_LDFLAGS += -lsofthsm2$(SHARED_SUFFIX)
+endif
+
 ifdef DEBUG
 LOCAL_CFLAGS += -g3
 endif

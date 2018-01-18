@@ -31,7 +31,7 @@
 
 #if defined(MBEDTLS_PKCS11_CLIENT_C)
 
-#include <pkcs11.h>
+#include <softhsm/pkcs11.h>
 
 #if ( defined(__ARMCC_VERSION) || defined(_MSC_VER) ) && \
     !defined(inline) && !defined(__cplusplus)
