@@ -95,7 +95,7 @@ APPS =	test_suite_aes.ecb$(EXEXT)	test_suite_aes.cbc$(EXEXT)	\
 
 .PHONY: all check test clean
 
-all: $(APPS)
+all: $(APPS) $(SOFTHSM2_DIR)
 
 $(DEP):
 	$(MAKE) -C ../library
