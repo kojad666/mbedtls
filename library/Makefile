@@ -1,7 +1,7 @@
 
 # Also see "include/mbedtls/config.h"
 
-CFLAGS	?= -O2
+CFLAGS	?= -O0
 WARNING_CFLAGS ?=  -Wall -Wextra
 LDFLAGS ?=
 

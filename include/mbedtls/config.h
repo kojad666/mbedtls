@@ -601,7 +601,7 @@
  *
  * Enable Cipher Block Chaining mode (CBC) for symmetric ciphers.
  */
-#define MBEDTLS_CIPHER_MODE_CBC
+//#define MBEDTLS_CIPHER_MODE_CBC
 
 /**
  * \def MBEDTLS_CIPHER_MODE_CFB
@@ -1390,7 +1390,7 @@
  *
  * Uncomment to enable the Connection ID extension.
  */
-//#define MBEDTLS_SSL_DTLS_CONNECTION_ID
+#define MBEDTLS_SSL_DTLS_CONNECTION_ID
 
 /**
  * \def MBEDTLS_SSL_ASYNC_PRIVATE
@@ -3404,7 +3404,7 @@
  * Uncomment to set the maximum plaintext size of both
  * incoming and outgoing I/O buffers.
  */
-//#define MBEDTLS_SSL_MAX_CONTENT_LEN             16384
+#define MBEDTLS_SSL_MAX_CONTENT_LEN             16384
 
 /** \def MBEDTLS_SSL_IN_CONTENT_LEN
  *
@@ -3429,21 +3429,21 @@
  * Uncomment to set the maximum plaintext size of the incoming I/O buffer
  * independently of the outgoing I/O buffer.
  */
-//#define MBEDTLS_SSL_IN_CONTENT_LEN              16384
+#define MBEDTLS_SSL_IN_CONTENT_LEN              16384
 
 /** \def MBEDTLS_SSL_CID_IN_LEN_MAX
  *
  * The maximum length of CIDs used for incoming DTLS messages.
  *
  */
-//#define MBEDTLS_SSL_CID_IN_LEN_MAX 32
+ #define MBEDTLS_SSL_CID_IN_LEN_MAX 32
 
 /** \def MBEDTLS_SSL_CID_OUT_LEN_MAX
  *
  * The maximum length of CIDs used for outgoing DTLS messages.
  *
  */
-//#define MBEDTLS_SSL_CID_OUT_LEN_MAX 32
+#define MBEDTLS_SSL_CID_OUT_LEN_MAX 32
 
 /** \def MBEDTLS_SSL_CID_PADDING_GRANULARITY
  *
@@ -3484,7 +3484,7 @@
  * Uncomment to set the maximum plaintext size of the outgoing I/O buffer
  * independently of the incoming I/O buffer.
  */
-//#define MBEDTLS_SSL_OUT_CONTENT_LEN             16384
+#define MBEDTLS_SSL_OUT_CONTENT_LEN             16384
 
 /** \def MBEDTLS_SSL_DTLS_MAX_BUFFERING
  *
