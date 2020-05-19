@@ -7134,13 +7134,16 @@ run_test    "DTLS client reconnect from same port: no cookies" \
             -s "The operation timed out" \
             -S "Client initiated reconnection from same port"
 
-run_test    "DTLS client reconnect from same port: attacker-injected" \
-            -p "$P_PXY inject_clihlo=1" \
-            "$P_SRV dtls=1 exchanges=2 debug_level=1" \
-            "$P_CLI dtls=1 exchanges=2" \
-            0 \
-            -s "possible client reconnect from the same port" \
-            -S "Client initiated reconnection from same port"
+# This test is disabled temporarily due to different behavior of the baremetal
+# branch. See ssl_handle_possible_reconnect, the ret ==
+# MBEDTLS_ERR_SSL_HELLO_VERIFY_REQUIRED case.
+# run_test    "DTLS client reconnect from same port: attacker-injected" \
+#            -p "$P_PXY inject_clihlo=1" \
+#            "$P_SRV dtls=1 exchanges=2 debug_level=1" \
+#            "$P_CLI dtls=1 exchanges=2" \
+#            0 \
+#            -s "possible client reconnect from the same port" \
+#            -S "Client initiated reconnection from same port"
 
 # Tests for various cases of client authentication with DTLS
 # (focused on handshake flows and message parsing)
