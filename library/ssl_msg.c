@@ -2971,6 +2971,7 @@ void mbedtls_ssl_update_handshake_status( mbedtls_ssl_context *ssl )
 #if defined(MBEDTLS_SSL_DTLS_ANTI_REPLAY)
 void mbedtls_ssl_dtls_replay_reset( mbedtls_ssl_context *ssl )
 {
+    MBEDTLS_SSL_DEBUG_MSG( 2, ( "AR mbedtls_ssl_dtls_replay_reset called" ) );
     ssl->in_window_top = 0;
     ssl->in_window = 0;
 }
@@ -3015,6 +3016,8 @@ int mbedtls_ssl_dtls_replay_check( mbedtls_ssl_context const *ssl )
     if( ssl->conf->anti_replay == MBEDTLS_SSL_ANTI_REPLAY_DISABLED )
         return( 0 );
 
+    MBEDTLS_SSL_DEBUG_MSG( 2, ( "AR check seqnum %lu, wintop - %lu, mask - %lu", rec_seqnum, ssl->in_window_top, ssl->in_window ) );
+    
     if( rec_seqnum > ssl->in_window_top )
         return( 0 );
 
@@ -3062,6 +3065,7 @@ void mbedtls_ssl_dtls_replay_update( mbedtls_ssl_context *ssl )
         if( bit < 64 ) /* Always true, but be extra sure */
             ssl->in_window |= (uint64_t) 1 << bit;
     }
+    MBEDTLS_SSL_DEBUG_MSG( 2, ( "AR update - seqnum %lu, wintop - %lu, mask - %lu", rec_seqnum, ssl->in_window_top, ssl->in_window ) );
 }
 #endif /* MBEDTLS_SSL_DTLS_ANTI_REPLAY */
 
@@ -3439,6 +3443,10 @@ static int ssl_parse_record_header( mbedtls_ssl_context const *ssl,
         /* Copy explicit record sequence number from input buffer. */
         memcpy( &rec->ctr[0], buf + rec_hdr_ctr_offset,
                 rec_hdr_ctr_len );
+        {
+            uint64_t rec_seqnum = ssl_load_six_bytes( &rec->ctr[0] + 2 );
+            MBEDTLS_SSL_DEBUG_MSG( 2, ( "AR copied - seqnum %lu, wintop - %lu, mask - %lu", rec_seqnum, ssl->in_window_top, ssl->in_window ) );
+        }
     }
     else
 #endif /* MBEDTLS_SSL_PROTO_DTLS */
@@ -4835,7 +4843,7 @@ int mbedtls_ssl_parse_change_cipher_spec( mbedtls_ssl_context *ssl )
     else
 #endif /* MBEDTLS_SSL_PROTO_DTLS */
     memset( ssl->in_ctr, 0, 8 );
-
+    MBEDTLS_SSL_DEBUG_MSG( 2, ( "AR reseting in_ctr" ) );
     mbedtls_ssl_update_in_pointers( ssl );
 
 #if defined(MBEDTLS_SSL_HW_RECORD_ACCEL)
