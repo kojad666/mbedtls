@@ -6276,6 +6276,7 @@ int mbedtls_ssl_context_save( mbedtls_ssl_context *ssl,
     used += 16;
     if( used <= buf_len )
     {
+        MBEDTLS_SSL_DEBUG_MSG( 1, ( "AR saved ctx - window %lu, window_top - %lu ",ssl->in_window, ssl->in_window_top ));
         *p++ = (unsigned char)( ( ssl->in_window_top >> 56 ) & 0xFF );
         *p++ = (unsigned char)( ( ssl->in_window_top >> 48 ) & 0xFF );
         *p++ = (unsigned char)( ( ssl->in_window_top >> 40 ) & 0xFF );
@@ -6563,6 +6564,7 @@ static int ssl_context_load( mbedtls_ssl_context *ssl,
                      ( (uint64_t) p[6] <<  8 ) |
                      ( (uint64_t) p[7]       );
     p += 8;
+    MBEDTLS_SSL_DEBUG_MSG( 1, ( "AR loaded ctx - window %lu, window_top - %lu ",ssl->in_window, ssl->in_window_top ));
 #endif /* MBEDTLS_SSL_DTLS_ANTI_REPLAY */
 
 #if defined(MBEDTLS_SSL_PROTO_DTLS)
